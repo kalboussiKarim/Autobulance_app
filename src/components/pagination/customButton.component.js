@@ -18,7 +18,7 @@ export const CustomButton = ({ flatListRef, flatListIndex, dataLength }) => {
     return {
       width:
         flatListIndex.value === dataLength - 1
-          ? withSpring(120)
+          ? withSpring(110)
           : withSpring(45),
       height: 45,
     };
