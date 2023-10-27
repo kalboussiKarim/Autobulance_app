@@ -28,4 +28,9 @@ export const colors = {
     success: "#138000",
     description: "#989898",
   },
+  inputBorder: {
+    red: "red",
+    black: "black",
+    white: "white",
+  },
 };
