@@ -177,7 +177,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.bg.primary,
-    marginTop: 20,
   },
   imageview: {
     marginTop: 10,

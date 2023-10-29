@@ -55,7 +55,7 @@ export const Inputfield = ({
             onPress={() => {
               setHidePassword(!hidePassword);
             }}
-            name={hidePassword ? "eye-off" : "eye"}
+            name={hidePassword ? "eye-off-outline" : "eye-outline"}
             style={inputStyles.iconStyle}
           />
         ) : (
