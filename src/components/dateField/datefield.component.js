@@ -12,11 +12,14 @@ export const BirthDateField = ({ error, handleOnchange }) => {
     handleOnchange(birthDate, "date_of_birth");
   }, []);
 
+  useEffect(() => {
+    handleOnchange(birthDate, "date_of_birth");
+  }, [birthDate]);
+
   const onChange = (e, selectedDate) => {
     if (selectedDate !== undefined) {
       setShowDatePicker(false);
       setBirthDate(selectedDate);
-      handleOnchange(selectedDate, "date_of_birth");
     }
   };
 

@@ -11,7 +11,7 @@ export const Decoration = () => {
       <View style={styles.title}>
         <Text
           style={{
-            color: "black",
+            color: "white",
             fontSize: 30,
             fontWeight: "bold",
           }}

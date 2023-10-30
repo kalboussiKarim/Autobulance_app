@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
     position: "absolute",
   },
   title: {
-    marginTop: 250,
+    marginTop: 120,
     marginLeft: 20,
     position: "absolute",
   },

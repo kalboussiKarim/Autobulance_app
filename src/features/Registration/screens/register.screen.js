@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import dayjs from "dayjs";
+
 import {
   ScrollView,
   StyleSheet,
@@ -9,39 +9,31 @@ import {
   Platform,
   TouchableOpacity,
 } from "react-native";
-import { CountryPicker } from "react-native-country-codes-picker";
+
 import { MaterialCommunityIcons } from "react-native-vector-icons";
-import DateTimePicker from "@react-native-community/datetimepicker";
+
 import { theme } from "../../../utils/theme";
 import { Inputfield } from "../../../components/inputField/Inputfield";
 import { Decoration } from "../components/Decoration/decoration.component";
 import { Button } from "../../authentication/components/Button/button.component";
 import { BirthDateField } from "../../../components/dateField/datefield.component";
-
+import { GenderPicker } from "../components/GenderPicker/GenderPicker.component";
+import { PhoneNumber } from "../components/PhoneNumber/PhoneNumber.component";
 export const RegisterScreen = () => {
   const [inputs, setInputs] = useState({
     full_name: "",
     email: "",
     password: "",
+    country_code: "",
     phone: "",
     gender: "",
     date_of_birth: "",
   });
 
   const [errors, setErrors] = useState({});
-  const [showPhone, setShowPhone] = useState(false);
-  const [countryCode, setCountryCode] = useState("+216");
-  const [phoneNumber, setPhoneNumber] = useState("");
 
   const handleOnchange = (text, input) => {
-    if (input == "phone") {
-      setInputs((prevState) => ({
-        ...prevState,
-        [input]: countryCode + text,
-      }));
-    } else {
-      setInputs((prevState) => ({ ...prevState, [input]: text }));
-    }
+    setInputs((prevState) => ({ ...prevState, [input]: text }));
   };
 
   const handleError = (error, input) => {
@@ -51,7 +43,7 @@ export const RegisterScreen = () => {
   return (
     <View style={styles.container}>
       <Decoration />
-      <ScrollView style={{ marginTop: 290 }}>
+      <ScrollView style={{ marginTop: 165 }}>
         {/*username, email and password View */}
         <View>
           <Inputfield
@@ -80,70 +72,21 @@ export const RegisterScreen = () => {
         </View>
 
         {/* Phone number View */}
-        <View
-          style={{
-            justifyContent: "space-around",
-            flexDirection: "row",
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => setShowPhone(true)}
-            style={{
-              flexDirection: "row",
-              backgroundColor: "white",
-              alignItems: "center",
-              justifyContent: "space-around",
-              elevation: 10,
-              borderRadius: 50,
-              height: 50,
-              marginLeft: 20,
-              width: 90,
-              marginVertical: 10,
-              gap: 10,
-              alignItems: "center",
-            }}
-          >
-            <Text style={{ marginLeft: 20, color: "grey" }}>{countryCode}</Text>
-            <MaterialCommunityIcons
-              name="arrow-down-thick"
-              style={{ fontSize: 30, marginRight: 10, color: "#22A699" }}
-            />
-          </TouchableOpacity>
-          <CountryPicker
-            style={{
-              modal: {
-                height: 300,
-              },
-            }}
-            show={showPhone}
-            onBackdropPress={() => setShowPhone(false)}
-            enableModalAvoiding={true}
-            pickerButtonOnPress={(item) => {
-              setCountryCode(item.dial_code);
-              setPhoneNumber(phoneNumber);
-              setShowPhone(false);
-            }}
-          />
-          <View style={{ flex: 1 }}>
-            <Inputfield
-              onChangeText={(text) => {
-                handleOnchange(text, "phone");
-                setPhoneNumber(text);
-              }}
-              onFocus={() => handleError(null, "phone")}
-              label="Enter your phone number"
-              error={errors.phone}
-              iconName="phone-outline"
-              keyboardType="numeric"
-            />
-          </View>
-        </View>
+        <PhoneNumber
+          handleOnchange={handleOnchange}
+          handleError={handleError}
+          error={errors.phone}
+        />
+
+        {/* Gender picker View */}
+        <GenderPicker handleOnchange={handleOnchange} />
 
         {/* birth date View */}
         <BirthDateField
           handleOnchange={handleOnchange}
           error={errors.date_of_birth}
         />
+
         {/*login and register buttons View */}
         <View
           style={{
