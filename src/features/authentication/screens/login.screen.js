@@ -15,9 +15,7 @@ import { ForgetPasswordDialog } from "../components/ForgetPassword/forgetPasswor
 import { Button } from "../components/Button/button.component";
 import { LoginWith } from "../components/loginWith/loginWith.component";
 
-const LoginWithComponent = ({ label, iconName }) => {};
-
-export const LoginScreen = () => {
+export const LoginScreen = ({ navigation }) => {
   const [inputs, setInputs] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
   const [check, setCheck] = useState(false);
@@ -135,7 +133,7 @@ export const LoginScreen = () => {
             borderColor="#F2BE22"
           />
           <Button
-            onPress={() => console.log("navigate to register screen")}
+            onPress={() => navigation.navigate("Register")}
             title="Register"
             titleColor="#FF5E1D"
             backgroundColor="white"

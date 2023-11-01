@@ -16,7 +16,7 @@ import Animated, {
 import { Pagination } from "../../../components/pagination/pagination.component";
 import { CustomButton } from "../../../components/pagination/customButton.component";
 
-export const OnboardingScreen = (props) => {
+export const OnboardingScreen = ({ navigation }) => {
   const { width: SCREEN_WIDTH } = useWindowDimensions();
   const flatListRef = useAnimatedRef(null);
   const x = useSharedValue(0);
@@ -120,6 +120,7 @@ export const OnboardingScreen = (props) => {
           flatListRef={flatListRef}
           flatListIndex={flatListIndex}
           dataLength={data.length}
+          navigation={navigation}
         />
       </View>
     </SafeAreaView>

@@ -19,7 +19,7 @@ import { Button } from "../../authentication/components/Button/button.component"
 import { BirthDateField } from "../../../components/dateField/datefield.component";
 import { GenderPicker } from "../components/GenderPicker/GenderPicker.component";
 import { PhoneNumber } from "../components/PhoneNumber/PhoneNumber.component";
-export const RegisterScreen = () => {
+export const RegisterScreen = ({ navigation }) => {
   const [inputs, setInputs] = useState({
     full_name: "",
     email: "",
@@ -43,7 +43,7 @@ export const RegisterScreen = () => {
   return (
     <View style={styles.container}>
       <Decoration />
-      <ScrollView style={{ marginTop: 165 }}>
+      <ScrollView style={{ marginTop: 280 }}>
         {/*username, email and password View */}
         <View>
           <Inputfield
@@ -99,7 +99,7 @@ export const RegisterScreen = () => {
         >
           <Button
             onPress={() => {
-              console.log("execute validation form");
+              navigation.navigate("Login");
             }}
             title="login"
             titleColor="#FF5E1D"
