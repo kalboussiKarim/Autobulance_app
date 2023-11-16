@@ -1,0 +1,3 @@
+class RequestContoller {
+  storeRequest({ request }) {}
+}
