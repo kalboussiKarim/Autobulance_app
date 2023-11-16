@@ -2,7 +2,13 @@ import { View, Button, Text } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { FontAwesome, Feather } from "react-native-vector-icons/";
 
-const BottomSheet = ({ refRBSheet, auto_state, date_of_ride, duration }) => {
+const BottomSheet = ({
+  refRBSheet,
+  auto_state,
+  date_of_ride,
+  duration,
+  manager_details,
+}) => {
   const AutobilanceDetail = ({ label, value }) => {
     return (
       <View
@@ -66,22 +72,21 @@ const BottomSheet = ({ refRBSheet, auto_state, date_of_ride, duration }) => {
                 margin: 2,
               }}
             >
-              Ms : karim
+              Ms : {manager_details.name}
             </Text>
             <Text style={{ fontWeight: "normal", fontSize: 18, margin: 2 }}>
-              50888598
+              Tel:{manager_details.tel}
             </Text>
           </View>
         </View>
-        <Feather name="phone-call" color="#22A699" size={50} />
+        <Feather name="phone-call" color="#22A699" size={35} />
       </View>
     );
   };
   return (
     <RBSheet
       ref={refRBSheet}
-      height={300}
-      openDuration={250}
+      height={250}
       closeOnDragDown={true}
       customStyles={{
         wrapper: {
@@ -92,13 +97,12 @@ const BottomSheet = ({ refRBSheet, auto_state, date_of_ride, duration }) => {
         },
         container: {
           margin: 10,
+
           height: "45%",
-          //   justifyContent: "flex-start",
-          //   alignItems: "flex-start",
         },
       }}
     >
-      <View style={{ marginHorizontal: 15 }}>
+      <View style={{ marginHorizontal: 10 }}>
         <Text style={{ fontWeight: "bold", fontSize: 25 }}>
           Autobulance Details{" "}
         </Text>
@@ -112,8 +116,8 @@ const BottomSheet = ({ refRBSheet, auto_state, date_of_ride, duration }) => {
         </View>
         <View
           style={{
-            marginVertical: 10,
-
+            marginVertical: 5,
+            justifyContent: "center",
             backgroundColor: "#747070", // Couleur de la ligne
             height: 1, // Hauteur de la ligne
             width: "100%", // Largeur de la ligne

@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  View,
-  Text,
-  Button,
-  PermissionsAndroid,
-} from "react-native";
+import { PermissionsAndroid } from "react-native";
 import Geolocation from "react-native-geolocation-service";
 import * as Location from "expo-location";
 import { decode } from "@mapbox/polyline"; //please install this package before running!
@@ -36,16 +30,6 @@ export default class MapServices {
     }
   };
   getLocalidation = async () => {
-    // const result = this.requestLocationPermission();
-    // result.then((res) => {
-    //   console.log("res is:", res);
-    //   if (res) {
-    //     console.log(Geolocation.requestAuthorization());
-    //     let currentLocation = await Location.getCurrentPositionAsync({});
-    // console.log(currentLocation);
-
-    //   }
-    // });
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
       console.log("grant permission ");
@@ -82,6 +66,99 @@ export default class MapServices {
       console.log(coords);
     } catch (error) {
       console.error("Error fetching data:", error.message);
+    }
+  };
+  getDistanceBetweenTwoLocalisations = async () => {
+    try {
+      const apiKey = "5b3ce3597851110001cf62484e98718bf64d41648c5b24aabafc05cd";
+      const apiUrl = `https://api.openrouteservice.org/v2/isochrones/driving-car`;
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      };
+      const response = await axios.post(
+        apiUrl,
+        {
+          locations: [
+            [11.0412233, 35.4962039],
+            [8.686507, 49.41943],
+          ],
+
+          range: [200, 300],
+          interval: 300,
+        },
+        { headers }
+      );
+      console.log(response.data.features);
+      const routes = response.data.features;
+
+      const array = [];
+      routes.forEach((feature) => {
+        const geometry = feature.geometry;
+        if (geometry && geometry.coordinates) {
+          const coordinates = geometry.coordinates;
+          coordinates[0].forEach((firstCoordinate) => {
+            const newObject = {
+              latitude: firstCoordinate[1],
+              longitude: firstCoordinate[0],
+              latitudeDelta: 0.01,
+              longitudeDelta: 0.01,
+            };
+            array.push(newObject);
+          });
+        }
+      });
+      return array;
+    } catch (error) {
+      if (error.response) {
+        console.error(
+          "Réponse du serveur avec code d'erreur :",
+          error.response.status,
+          error.response.data
+        );
+      } else if (error.request) {
+        console.error("Aucune réponse reçue du serveur :", error.request);
+      } else {
+        console.error(
+          "Erreur lors de la configuration de la requête :",
+          error.message
+        );
+      }
+    }
+  };
+  getDuration = async () => {
+    try {
+      // URL de l'API
+      const apiUrl = "https://api.openrouteservice.org/v2/matrix/driving-car";
+      const apiKey = "5b3ce3597851110001cf62484e98718bf64d41648c5b24aabafc05cd"; // Replace with your OpenRouteService API Key
+
+      // Paramètres de la requête
+      const params = {
+        locations: [
+          [11.0412233, 35.4962039],
+          [8.686507, 49.41943],
+        ],
+        metrics: ["duration"],
+      };
+
+      // Headers avec la clé API
+      const headers = {
+        Authorization: `Bearer ${apiKey}`,
+      };
+
+      // Faire la requête
+      const response = await axios.post(apiUrl, params, { headers });
+
+      // Extraire la durée de trajet depuis la réponse
+      const travelDuration = response.data.durations[0][1];
+
+      return travelDuration / 60;
+    } catch (error) {
+      console.error(
+        "Erreur lors de la récupération de la durée de trajet :",
+        error
+      );
+      throw error;
     }
   };
 }

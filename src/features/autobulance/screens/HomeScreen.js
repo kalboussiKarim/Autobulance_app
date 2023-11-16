@@ -103,10 +103,6 @@ const HomeScreen = ({ navigation }) => {
         <Animated.View style={styles.btnCircleUp}>
           <TouchableOpacity
             style={styles.button}
-            // onPress={() => this.RBSheet.open()}
-            // //test the bottom sheet
-            // // onPress={() => refRBSheet.current.open()}
-            // //test the call for autobulance dialog
             onPress={() => setOpendialog(true)}
           >
             <CallForAutoBulanceDialog
