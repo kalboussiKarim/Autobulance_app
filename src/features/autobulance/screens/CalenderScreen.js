@@ -1,33 +1,72 @@
 import { View, Button, Text } from "react-native";
-import MapServices from "../services/MapServices";
-import RequestServices from "../services/RequestServices";
-import Echo from "laravel-echo";
-import Pusher from "pusher-js/react-native";
-import { useEffect } from "react";
-// import { WebSocket } from "react-native-websocket";
+import { useEffect, useState } from "react";
+import { Calendar, LocaleConfig } from "react-native-calendars";
+import CallForAutoBulanceDialog from "../components/CallForAutoBulanceDialog";
+import TimePickerComponent from "./calenderScreenComponents/TimePickerComponent";
 
 const CalenderScreen = (props) => {
   useEffect(() => {}, []);
-  const mapServices = new MapServices();
+  const [selected, setSelected] = useState("");
+  const [openDialog, setOpendialog] = useState(false);
 
-  const breakdownOptions = [
-    { label: "Pneu crevé", value: "pneu_creve" },
-    { label: "Batterie à plat", value: "batterie_plate" },
-    { label: "Problème de moteur", value: "probleme_moteur" },
-    // Ajoutez d'autres options ici
-  ];
   return (
     <View
       style={{
-        display: "flex",
-        justifyContent: "center",
         flex: 1,
-        alignItems: "center",
+
+        paddingHorizontal: 20,
+        paddingTop: 50,
       }}
     >
-      <Button title="btn" onPress={mapServices.getDuration}>
-        button
-      </Button>
+      <View
+        style={{
+          backgroundColor: "red",
+          height: "90%",
+          width: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: 15,
+          backgroundColor: "white",
+        }}
+      >
+        <Calendar
+          theme={{
+            backgroundColor: "#ffffff",
+            textDayFontSize: 18,
+            textMonthFontSize: 25,
+            textMonthFontWeight: "bold",
+            textDayFontWeight: "300",
+            weekVerticalMargin: 20,
+            textSectionTitleColor: "#b6c1cd",
+            selectedDayBackgroundColor: "#9ED0CC",
+            selectedDayTextColor: "#ffffff",
+            selectedDotColor: "#9ED0CC",
+            todayTextColor: "#00adf5",
+            dayTextColor: "#2d4150",
+            monthTextColor: "black",
+          }}
+          style={{
+            height: "80%",
+            width: "80%",
+          }}
+          onDayPress={(day) => {
+            setSelected(day.dateString);
+            setOpendialog(true);
+          }}
+          markedDates={{
+            [selected]: {
+              selected: true,
+              disableTouchEvent: true,
+            },
+          }}
+        />
+        <CallForAutoBulanceDialog
+          ExtraContent={<TimePickerComponent />}
+          //localisation={localisation}
+          openDialog={openDialog}
+          handleCancel={() => setOpendialog(false)}
+        />
+      </View>
     </View>
   );
 };

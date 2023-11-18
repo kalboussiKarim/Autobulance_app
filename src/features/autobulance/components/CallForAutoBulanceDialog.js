@@ -8,6 +8,7 @@ import { useState } from "react";
 import { handlePostRequest } from "./callforAutobulance/services";
 
 const CallForAutoBulanceDialog = ({
+  ExtraContent,
   openDialog,
   handleCancel,
   localisation,
@@ -96,6 +97,7 @@ const CallForAutoBulanceDialog = ({
             iconName="send"
             keyboardType="default"
           />
+          {ExtraContent}
           <View>
             <Text
               style={{
