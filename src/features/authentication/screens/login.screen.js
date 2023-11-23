@@ -6,22 +6,26 @@ import {
   Image,
   Text,
   ScrollView,
+  Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
 import { theme } from "../../../utils/theme";
+import { useDispatch, useSelector } from "react-redux";
+
 import { Inputfield } from "../../../components/inputField/Inputfield";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 import { ForgetPasswordDialog } from "../components/ForgetPassword/forgetPassword.component";
 import { Button } from "../components/Button/button.component";
 import { LoginWith } from "../components/loginWith/loginWith.component";
-
-const LoginWithComponent = ({ label, iconName }) => {};
-
-export const LoginScreen = () => {
+import { useNavigation } from "@react-navigation/native";
+import { login } from "../slice";
+import http from "../../autobulance/utilities/http";
+export const LoginScreen = ({ navigation }) => {
   const [inputs, setInputs] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
   const [check, setCheck] = useState(false);
   const [resetPasswordDialog, setResetPasswordDialog] = useState(false);
+  const dispatch = useDispatch();
 
   const handleOnchange = (text, input) => {
     setInputs((prevState) => ({ ...prevState, [input]: text }));
@@ -30,7 +34,31 @@ export const LoginScreen = () => {
   const handleError = (err, input) => {
     setErrors((prevState) => ({ ...prevState, [input]: err }));
   };
+  const formValidation = () => {
+    Keyboard.dismiss();
+    let isValid = true;
+    if (!inputs.email) {
+      handleError("Please input email", "email");
+      isValid = false;
+    }
+    if (!inputs.password) {
+      handleError("Please input password", "password");
+      isValid = false;
+    }
 
+    if (isValid) {
+      handleLogin();
+    }
+  };
+  const handleLogin = async () => {
+    try {
+      await dispatch(login(inputs)).then((response) => {
+        console.log(response);
+      });
+    } catch (error) {
+      console.log("An unexpected error occurred:", error);
+    }
+  };
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -40,7 +68,7 @@ export const LoginScreen = () => {
         {/*input fields View */}
         <View>
           <Inputfield
-            onChange={(text) => handleOnchange(text, "email")}
+            onChangeText={(text) => handleOnchange(text, "email")}
             onFocus={() => handleError(null, "email")}
             label="Enter you email address"
             error={errors.email}
@@ -48,7 +76,7 @@ export const LoginScreen = () => {
             keyboardType="email-address"
           />
           <Inputfield
-            onChange={(text) => handleOnchange(text, "password")}
+            onChangeText={(text) => handleOnchange(text, "password")}
             onFocus={() => handleError(null, "password")}
             label="Enter your password"
             error={errors.password}
@@ -128,7 +156,7 @@ export const LoginScreen = () => {
           }}
         >
           <Button
-            onPress={() => console.log("execute validation form")}
+            onPress={formValidation}
             title="login"
             titleColor="white"
             backgroundColor="#F2BE22"
@@ -177,7 +205,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.bg.primary,
-    marginTop: 20,
+    paddingTop: 40,
   },
   imageview: {
     marginTop: 10,

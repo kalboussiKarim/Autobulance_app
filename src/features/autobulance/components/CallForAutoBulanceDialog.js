@@ -13,6 +13,7 @@ const CallForAutoBulanceDialog = ({
   handleCancel,
   localisation,
 }) => {
+  const breakdownsSlice = useSelector((state) => state.breakdowns);
   const [inputs, setInputs] = useState({
     car_number: "",
     car_model: "",
@@ -21,7 +22,7 @@ const CallForAutoBulanceDialog = ({
   const [errors, setErrors] = useState({
     car_number: "",
     car_model: "",
-    breakdowns: [],
+    breakdowns: "",
   });
 
   const handleOnchange = (text, input) => {
@@ -32,8 +33,6 @@ const CallForAutoBulanceDialog = ({
     setErrors((prevState) => ({ ...prevState, [input]: err }));
   };
   const handlePickerChange = (itemValue, itemIndex) => {
-    console.log("Pannes sélectionnées :", inputs.breakdowns);
-
     var isSelected = false;
     isSelected = inputs.breakdowns.includes(itemValue);
 
@@ -52,6 +51,7 @@ const CallForAutoBulanceDialog = ({
         breakdowns: updatedBreakdowns,
       }));
     }
+    console.log("Pannes sélectionnées :", inputs.breakdowns);
   };
   const dispatch = useDispatch();
 
@@ -78,7 +78,6 @@ const CallForAutoBulanceDialog = ({
     <DialogComponent
       visible={openDialog}
       title="Call for AutoBulance "
-      description=""
       content={
         <View style={{ width: "100%" }}>
           <Inputfield
@@ -106,7 +105,7 @@ const CallForAutoBulanceDialog = ({
                 marginVertical: 10,
               }}
             >
-              Sélectionnez your care breakdowns:
+              Sélectionnez your car breakdowns:
             </Text>
 
             <View style={styles.container}>
@@ -116,17 +115,17 @@ const CallForAutoBulanceDialog = ({
                 mode="dropdown"
                 multiple={true}
               >
-                {carBreakdowns.map((breakdown, index) => {
+                {breakdownsSlice?.breakdowns?.map((breakdown, index) => {
                   return (
                     <Picker.Item
                       style={
-                        inputs.breakdowns.includes(breakdown.value)
+                        inputs.breakdowns.includes(breakdown.id)
                           ? styles.pickerItem
                           : styles.noPickedItem
                       }
-                      label={breakdown.label}
-                      value={breakdown.value}
-                      key={index}
+                      label={breakdown.breakdown}
+                      value={breakdown.id}
+                      key={breakdown.id}
                     />
                   );
                 })}

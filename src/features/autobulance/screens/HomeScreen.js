@@ -7,7 +7,8 @@ import {
   Alert,
 } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
-
+import { useDispatch, useSelector } from "react-redux";
+import { colors } from "../../../utils/theme/colors";
 import { useRef, useState, useEffect } from "react";
 import { CurvedBottomBarExpo } from "react-native-curved-bottom-bar";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -16,13 +17,15 @@ import { screens } from "../../../data/data";
 import DialogComponent from "../components/DialogComponent";
 import CallForAutoBulanceDialog from "../components/CallForAutoBulanceDialog";
 import MapServices from "../services/MapServices";
-
+import { getBreakdowns } from "../slices/breakdownsSlice";
 const HomeScreen = ({ navigation }) => {
   const [openDialog, setOpendialog] = useState(false);
   const [localisation, setLocalisation] = useState({
     latitude: 0,
     longitude: 0,
   });
+  const dispatch = useDispatch();
+  dispatch(getBreakdowns());
 
   useEffect(() => {
     const mapServices = new MapServices();
@@ -113,7 +116,7 @@ const HomeScreen = ({ navigation }) => {
             <MaterialCommunityIcons
               name={"car-emergency"}
               color="black"
-              size={30}
+              size={33}
             />
           </TouchableOpacity>
         </Animated.View>
@@ -151,9 +154,8 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#22A699",
+    backgroundColor: colors.icons.primary,
     bottom: 30,
-    // shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 1,
@@ -163,7 +165,6 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   shawdow: {
-    shadowColor: "#DDDDDD",
     shadowOffset: {
       width: 0,
       height: 0,

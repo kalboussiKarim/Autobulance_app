@@ -2,8 +2,8 @@ import { PermissionsAndroid } from "react-native";
 import Geolocation from "react-native-geolocation-service";
 import * as Location from "expo-location";
 import { decode } from "@mapbox/polyline"; //please install this package before running!
-
 import axios from "axios";
+import { postRoute } from "../slice";
 export default class MapServices {
   requestLocationPermission = async () => {
     try {
@@ -53,7 +53,7 @@ export default class MapServices {
       const end = `${end_loc.longitude},${end_loc.latitude}`;
       console.log(start, end);
       const apiUrl = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${apiKey}&start=${start}&end=${end}`;
-      console.log(apiUrl);
+      // console.log(apiUrl);
       const response = await axios.get(apiUrl);
 
       const routeCoordinates = response.data.features[0].geometry.coordinates;
@@ -63,12 +63,12 @@ export default class MapServices {
           longitude: point[1],
         };
       });
-      console.log(coords);
+      // console.log(coords);
     } catch (error) {
       console.error("Error fetching data:", error.message);
     }
   };
-  getDistanceBetweenTwoLocalisations = async () => {
+  getDistanceBetweenTwoLocalisations = async ({ long, lat, dispatch }) => {
     try {
       const apiKey = "5b3ce3597851110001cf62484e98718bf64d41648c5b24aabafc05cd";
       const apiUrl = `https://api.openrouteservice.org/v2/isochrones/driving-car`;
@@ -81,7 +81,7 @@ export default class MapServices {
         {
           locations: [
             [11.0412233, 35.4962039],
-            [8.686507, 49.41943],
+            [lat, long],
           ],
 
           range: [200, 300],
@@ -89,7 +89,7 @@ export default class MapServices {
         },
         { headers }
       );
-      console.log(response.data.features);
+      // console.log(response.data.features);
       const routes = response.data.features;
 
       const array = [];
@@ -108,6 +108,7 @@ export default class MapServices {
           });
         }
       });
+      //  dispatch(postRoute(array));
       return array;
     } catch (error) {
       if (error.response) {

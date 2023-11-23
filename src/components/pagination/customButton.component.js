@@ -13,7 +13,12 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-export const CustomButton = ({ flatListRef, flatListIndex, dataLength }) => {
+export const CustomButton = ({
+  navigation,
+  flatListRef,
+  flatListIndex,
+  dataLength,
+}) => {
   const buttonAnimationStyle = useAnimatedStyle(() => {
     return {
       width:
@@ -62,7 +67,7 @@ export const CustomButton = ({ flatListRef, flatListIndex, dataLength }) => {
         if (flatListIndex.value < dataLength - 1) {
           flatListRef.current.scrollToIndex({ index: flatListIndex.value + 1 });
         } else {
-          console.log("Navigate baby");
+          navigation.navigate("login");
         }
       }}
     >

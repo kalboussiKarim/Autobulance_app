@@ -1,14 +1,17 @@
 import Echo from "laravel-echo";
 import Pusher from "pusher-js/react-native";
-
-export const connectToWebSocket = ({ fn, handleChange }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { postAutobulance } from "../slice";
+import MapServices from "./MapServices";
+export const connectToWebSocket = ({ fn, handleChange, dispatch }) => {
+  const mapServices = MapServices();
   try {
     const ws = new Echo({
       broadcaster: "pusher",
       Pusher,
       key: "autobulance_key", // app key
-      wsHost: "192.168.1.14", // host
-      wssHost: "192.168.1.14",
+      wsHost: "192.168.1.36", // host
+      wssHost: "192.168.1.36",
       wsPort: 6001, // port
       wssPort: 6001,
       forceTLS: false,
@@ -23,7 +26,13 @@ export const connectToWebSocket = ({ fn, handleChange }) => {
       .subscribed(() => {
         console.log("subscribed");
       })
-      .listen(".pushLocalisation", (e) => {
+      .listen(".pushLocalisation", async (e) => {
+        // dispatch(postAutobulance(e));
+        // await MapServices().getDistanceBetweenTwoLocalisations({
+        //   long: e.longitude,
+        //   lat: e.lattitude,
+        //   dispatch: dispatch,
+        // });
         handleChange(e);
         console.log("event listner  :", e);
 

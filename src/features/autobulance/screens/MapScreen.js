@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { View, Text, Image, TouchableWithoutFeedback } from "react-native";
 import MapView, { Marker, Callout, Polyline } from "react-native-maps";
@@ -6,46 +7,43 @@ import MapServices from "../services/MapServices";
 import CustomMarker from "../components/CustomMarker";
 import BottomSheet from "../components/BottomSheet";
 import { connectToWebSocket } from "../services/WebSockets";
-import { MaterialCommunityIcons } from "react-native-vector-icons";
-import { Button } from "react-native";
-import Echo from "laravel-echo";
-import Pusher from "pusher-js/react-native";
+import Fn from "../utilities/Fn";
+
 const MapScreen = () => {
+  const dispatch = useDispatch();
+  const autobulanceState = useSelector((state) => state.autobulance);
+
   const refRBSheet = useRef();
   const [isVisible, setIsVisible] = React.useState(false);
+  const [isOnService, setIsOnService] = React.useState(0);
   const [autobulance, setAutobulance] = React.useState({});
   const [cordinates, setCordinates] = React.useState([]);
   const [duration, setDuration] = React.useState(0);
   const handleChangeAutobulance = (data) => {
     setAutobulance(data);
-    console.log(autobulance);
   };
   const [startLocation, setStartLocation] = React.useState({
     latitude: 35.4962207,
     longitude: 10.6369407,
-    latitudeDelta: 0.01,
-    longitudeDelta: 0.01,
+    latitudeDelta: 0.001,
+    longitudeDelta: 0.001,
   });
-
-  React.useEffect(() => {
+  React.useEffect(async () => {
     const mapServices = new MapServices();
-
     connectToWebSocket({
+      dispatch: dispatch,
       handleChange: handleChangeAutobulance,
       fn: () => {
         setIsVisible(true);
         refRBSheet.current.open();
       },
     });
-
     mapServices.getDuration().then((value) => {
-      console.log("duration");
       setDuration(value);
-      console.log(duration);
     });
-    mapServices.getDistanceBetweenTwoLocalisations().then((value) => {
-      setCordinates(value);
-    });
+    // mapServices.getDistanceBetweenTwoLocalisations().then((value) => {
+    //   setCordinates(value);
+    // });
 
     setCordinates([
       startLocation,
@@ -697,20 +695,28 @@ const MapScreen = () => {
           image={require("../../../../assets/user.png")}
           callout={"user"}
         ></CustomMarker>
-        <CustomMarker
-          localisation={cordinates[cordinates.length - 1]}
-          image={require("../../../../assets/ambulance.png")}
-          callout={"user"}
-        ></CustomMarker>
-
-        <Polyline
-          coordinates={cordinates} //specify our coordinates
-          strokeColor={"black"}
-          strokeWidth={5}
-          lineDashPattern={[2]}
-        />
+        {autobulanceState?.onService && (
+          <View>
+            <CustomMarker
+              localisation={{
+                longitude: autobulanceState?.autobulance.longitude,
+                latitude: autobulanceState?.autobulance.lattitude,
+                latitudeDelta: 0.09,
+                longitudeDelta: 0.09,
+              }}
+              image={require("../../../../assets/ambulance.png")}
+              callout={"autobulance"}
+            ></CustomMarker>
+            {/* <Polyline
+              coordinates={autobulanceState?.autobulance.route}
+              strokeColor={"black"}
+              strokeWidth={5}
+              lineDashPattern={[2]}
+            /> */}
+          </View>
+        )}
       </MapView>
-      {isVisible && (
+      {autobulanceState?.onService && (
         <TouchableWithoutFeedback
           onPress={() => {
             refRBSheet.current.open();
@@ -736,14 +742,8 @@ const MapScreen = () => {
       )}
 
       <BottomSheet
-        manager_details={{
-          name: autobulance.manager,
-          tel: autobulance.manager_tel,
-        }}
         refRBSheet={refRBSheet}
-        date_of_ride={"30/10/2023"}
-        duration={"30"}
-        auto_state={autobulance.autobulance_mat}
+        duration={Math.trunc(parseFloat(duration))}
       ></BottomSheet>
     </View>
   );

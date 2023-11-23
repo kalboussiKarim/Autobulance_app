@@ -9,12 +9,14 @@ export const data = [
     image: image1,
     bg: bg,
     title: "This is the title of the onboarding",
+
     description:
       "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form",
   },
   {
     id: 2,
     image: image2,
+
     bg: bg,
     title: "This is the title of the onboarding",
     description:
@@ -23,6 +25,7 @@ export const data = [
   {
     id: 3,
     image: image3,
+
     bg: bg,
     title: "This is the title of the onboarding",
     description:

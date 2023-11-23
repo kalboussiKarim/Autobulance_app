@@ -1,11 +1,12 @@
 import { View, Button, Text } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { FontAwesome, Feather } from "react-native-vector-icons/";
-
+import { useDispatch, useSelector } from "react-redux";
+import Fn from "../utilities/Fn";
 const BottomSheet = ({
   refRBSheet,
-  auto_state,
   date_of_ride,
+  auto_state,
   duration,
   manager_details,
 }) => {
@@ -72,10 +73,10 @@ const BottomSheet = ({
                 margin: 2,
               }}
             >
-              Ms : {manager_details.name}
+              Ms : {autobulanceState?.autobulance.manager}
             </Text>
             <Text style={{ fontWeight: "normal", fontSize: 18, margin: 2 }}>
-              Tel:{manager_details.tel}
+              Tel:{autobulanceState?.autobulance.manager_tel}
             </Text>
           </View>
         </View>
@@ -83,6 +84,7 @@ const BottomSheet = ({
       </View>
     );
   };
+  const autobulanceState = useSelector((state) => state.autobulance);
   return (
     <RBSheet
       ref={refRBSheet}
@@ -109,9 +111,12 @@ const BottomSheet = ({
         <View style={{ marginVertical: 5 }}>
           <AutobilanceDetail
             label={"Autobulance  state :"}
-            value={auto_state}
+            value={autobulanceState?.autobulance.auto_state}
           />
-          <AutobilanceDetail label={"Date of Ride :"} value={date_of_ride} />
+          <AutobilanceDetail
+            label={"Date:"}
+            value={Fn.getTime() + " : " + Fn.getDate()}
+          />
           <AutobilanceDetail label={"Duration:"} value={duration + "  min"} />
         </View>
         <View

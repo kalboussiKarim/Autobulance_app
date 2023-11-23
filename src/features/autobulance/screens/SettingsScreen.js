@@ -1,5 +1,6 @@
-import React from "react";
-import { View } from "react-native";
+import React, { useEffect } from "react";
+import { View, StyleSheet } from "react-native";
+import MapView, { Polyline } from "react-native-maps";
 
 const SettingsScreen = (props) => {
   return <View></View>;

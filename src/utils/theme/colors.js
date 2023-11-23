@@ -33,4 +33,7 @@ export const colors = {
     black: "black",
     white: "white",
   },
+  icons: {
+    primary: "#22A699",
+  },
 };

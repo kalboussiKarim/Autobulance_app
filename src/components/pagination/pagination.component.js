@@ -12,7 +12,7 @@ export const Pagination = ({ data, x, screenWidth }) => {
       const widthAnimation = interpolate(
         x.value,
         [(i - 1) * screenWidth, i * screenWidth, (i + 1) * screenWidth],
-        [15, 80, 15],
+        [15, 70, 15],
         Extrapolate.CLAMP
       );
       const opacityAnimation = interpolate(

@@ -15,8 +15,10 @@ import Animated, {
 } from "react-native-reanimated";
 import { Pagination } from "../../../components/pagination/pagination.component";
 import { CustomButton } from "../../../components/pagination/customButton.component";
+import { useNavigation } from "@react-navigation/native";
 
 export const OnboardingScreen = (props) => {
+  const navigation = useNavigation();
   const { width: SCREEN_WIDTH } = useWindowDimensions();
   const flatListRef = useAnimatedRef(null);
   const x = useSharedValue(0);
@@ -56,8 +58,8 @@ export const OnboardingScreen = (props) => {
       );
       return {
         opacity: opacityAnimation,
-        width: SCREEN_WIDTH * 0.8,
-        height: SCREEN_WIDTH * 0.8,
+        width: SCREEN_WIDTH * 0.6,
+        height: SCREEN_WIDTH * 0.6,
         transform: [{ translateY: translateYAnimation }],
       };
     });
@@ -89,7 +91,36 @@ export const OnboardingScreen = (props) => {
     });
     return (
       <View style={[styles.itemContainer, { width: SCREEN_WIDTH }]}>
-        <Animated.Image source={item.image} style={imageAnimatedStyle} />
+        <Animated.View
+          style={[
+            imageAnimatedStyle,
+            {
+              display: "flex",
+              width: SCREEN_WIDTH * 0.6,
+              height: SCREEN_WIDTH * 0.6,
+              marginBottom: 50,
+              marginTop: 20,
+            },
+          ]}
+        >
+          <Image
+            source={item.bg}
+            style={[
+              {
+                position: "absolute",
+                height: SCREEN_WIDTH,
+                width: SCREEN_WIDTH,
+                marginLeft: -80,
+                marginRight: -150,
+                marginTop: -50,
+              },
+            ]}
+          ></Image>
+          <Image
+            source={item.image}
+            style={{ height: SCREEN_WIDTH * 0.6, width: SCREEN_WIDTH * 0.6 }}
+          ></Image>
+        </Animated.View>
         <Animated.View style={textAnimatedStyle}>
           <Text style={styles.itemTitle}>{item.title}</Text>
           <Text style={styles.itemDescription}>{item.description}</Text>
@@ -120,6 +151,7 @@ export const OnboardingScreen = (props) => {
           flatListRef={flatListRef}
           flatListIndex={flatListIndex}
           dataLength={data.length}
+          navigation={navigation}
         />
       </View>
     </SafeAreaView>
@@ -136,14 +168,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.bg.primary,
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "center",
+    gap: 10,
   },
   itemTitle: {
     fontWeight: "bold",
-    fontSize: 24,
+    fontSize: 18,
     color: theme.colors.text.primary,
-    textAlign: "center",
-    marginHorizontal: 100,
+
+    alignSelf: "center",
     marginBottom: 10,
   },
   itemDescription: {

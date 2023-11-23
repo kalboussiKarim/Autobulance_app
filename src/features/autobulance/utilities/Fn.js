@@ -20,6 +20,12 @@ class Fn {
 
     return formattedTime;
   };
+  getTime = () => {
+    const currentDate = new Date();
+    const options = { hour: "2-digit", minute: "2-digit" };
+    const formattedTime = currentDate.toLocaleTimeString("fr-FR", options);
+    return formattedTime;
+  };
 }
 
 export default new Fn();
