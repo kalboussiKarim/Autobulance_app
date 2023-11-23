@@ -14,7 +14,7 @@ export const PhoneNumber = ({ handleOnchange, error, handleError }) => {
   }, []);
 
   useEffect(() => {
-    handleOnchange(phoneNumber, "phone");
+    handleOnchange(phoneNumber, "phone_number");
   }, [phoneNumber]);
 
   useEffect(() => {

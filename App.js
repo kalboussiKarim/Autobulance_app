@@ -2,16 +2,16 @@ import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import { theme } from "./src/utils/theme";
-import { Screens } from "./src/routes/homeStack";
+import { LoginScreens } from "./src/routes/LoginStack";
+import { Provider } from "react-redux";
+import store from "./src/store";
 
-//screens
-import { OnboardingScreen } from "./src/features/onboarding/views/onboarding.screen";
-import { LoginScreen } from "./src/features/authentication/screens/login.screen";
-import { RegisterScreen } from "./src/features/Registration/screens/register.screen";
 export default function App() {
   return (
     <View style={styles.container}>
-      <Screens />
+      <Provider store={store}>
+        <LoginScreens />
+      </Provider>
       <StatusBar style="auto" />
     </View>
   );

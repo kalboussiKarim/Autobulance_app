@@ -9,11 +9,11 @@ export const BirthDateField = ({ error, handleOnchange }) => {
   const [birthDate, setBirthDate] = useState(new Date());
 
   useEffect(() => {
-    handleOnchange(birthDate, "date_of_birth");
+    handleOnchange(dayjs(birthDate).format("YYYY-MM-DD"), "date_of_birth");
   }, []);
 
   useEffect(() => {
-    handleOnchange(birthDate, "date_of_birth");
+    handleOnchange(dayjs(birthDate).format("YYYY-MM-DD"), "date_of_birth");
   }, [birthDate]);
 
   const onChange = (e, selectedDate) => {
@@ -43,7 +43,7 @@ export const BirthDateField = ({ error, handleOnchange }) => {
         >
           <Text style={{ color: "black", padding: 10 }}>
             {!showDatePicker && Platform.OS === "android"
-              ? dayjs(birthDate).format("DD/MM/YYYY")
+              ? dayjs(birthDate).format("YYYY-MM-DD")
               : ""}
           </Text>
           <View>
