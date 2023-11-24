@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, FlatList } from "react-native";
-import { theme } from "../../../utils/theme";
+import { theme } from "../../autobulance/utilities/theme";
 import { SafeAreaView, Image, Text } from "react-native";
 import { data } from "../data/data";
 import { View } from "react-native";

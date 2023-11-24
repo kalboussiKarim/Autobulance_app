@@ -8,16 +8,16 @@ import {
 } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { useDispatch, useSelector } from "react-redux";
-import { colors } from "../../../utils/theme/colors";
-import { useRef, useState, useEffect } from "react";
+import { colors } from "../utilities/theme/colors";
 import { CurvedBottomBarExpo } from "react-native-curved-bottom-bar";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { screens } from "../../../data/data";
 import DialogComponent from "../components/DialogComponent";
 import CallForAutoBulanceDialog from "../components/CallForAutoBulanceDialog";
-import MapServices from "../services/MapServices";
 import { getBreakdowns } from "../slices/breakdownsSlice";
+import { useState, useEffect } from "react";
+import { getLocalidation } from "../services/MapServices";
 const HomeScreen = ({ navigation }) => {
   const [openDialog, setOpendialog] = useState(false);
   const [localisation, setLocalisation] = useState({
@@ -25,11 +25,11 @@ const HomeScreen = ({ navigation }) => {
     longitude: 0,
   });
   const dispatch = useDispatch();
+
   dispatch(getBreakdowns());
 
   useEffect(() => {
-    const mapServices = new MapServices();
-    mapServices.getLocalidation().then((location) => {
+    getLocalidation().then((location) => {
       if (location) {
         setLocalisation(location);
       }

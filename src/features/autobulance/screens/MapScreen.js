@@ -3,10 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { View, Text, Image, TouchableWithoutFeedback } from "react-native";
 import MapView, { Marker, Callout, Polyline } from "react-native-maps";
-import MapServices from "../services/MapServices";
 import CustomMarker from "../components/CustomMarker";
 import BottomSheet from "../components/BottomSheet";
 import { connectToWebSocket } from "../services/WebSockets";
+import CustomPolyline from "../components/CustomPolyline";
+import {
+  getDuration,
+  getDistanceBetweenTwoLocalisations,
+  getPathBetweenTwoLocations,
+  getLocalidation,
+} from "../services/MapServices";
 import Fn from "../utilities/Fn";
 
 const MapScreen = () => {
@@ -15,7 +21,7 @@ const MapScreen = () => {
 
   const refRBSheet = useRef();
   const [isVisible, setIsVisible] = React.useState(false);
-  const [isOnService, setIsOnService] = React.useState(0);
+
   const [autobulance, setAutobulance] = React.useState({});
   const [cordinates, setCordinates] = React.useState([]);
   const [duration, setDuration] = React.useState(0);
@@ -28,23 +34,13 @@ const MapScreen = () => {
     latitudeDelta: 0.001,
     longitudeDelta: 0.001,
   });
-  React.useEffect(async () => {
-    const mapServices = new MapServices();
-    connectToWebSocket({
-      dispatch: dispatch,
-      handleChange: handleChangeAutobulance,
-      fn: () => {
-        setIsVisible(true);
-        refRBSheet.current.open();
-      },
-    });
-    mapServices.getDuration().then((value) => {
+  React.useEffect(() => {
+    getDuration().then((value) => {
       setDuration(value);
     });
-    // mapServices.getDistanceBetweenTwoLocalisations().then((value) => {
+    // getDistanceBetweenTwoLocalisations().then((value) => {
     //   setCordinates(value);
     // });
-
     setCordinates([
       startLocation,
       {
@@ -667,13 +663,20 @@ const MapScreen = () => {
       },
     ]);
 
-    mapServices.getLocalidation().then((location) => {
+    getLocalidation().then((location) => {
       if (location) {
-        console.log("localisation ");
         setStartLocation(location);
         console.log(location);
         console.log(startLocation);
       }
+    });
+    connectToWebSocket({
+      dispatch: dispatch,
+      handleChange: handleChangeAutobulance,
+      fn: () => {
+        setIsVisible(true);
+        refRBSheet.current.open();
+      },
     });
   }, []);
   return (
@@ -707,12 +710,7 @@ const MapScreen = () => {
               image={require("../../../../assets/ambulance.png")}
               callout={"autobulance"}
             ></CustomMarker>
-            {/* <Polyline
-              coordinates={autobulanceState?.autobulance.route}
-              strokeColor={"black"}
-              strokeWidth={5}
-              lineDashPattern={[2]}
-            /> */}
+            <CustomPolyline />
           </View>
         )}
       </MapView>

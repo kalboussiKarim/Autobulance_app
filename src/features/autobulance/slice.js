@@ -52,6 +52,7 @@ export const postRoute = createAsyncThunk(
   "route/post",
   async (data, thunkAPI) => {
     try {
+      console.log("route to poste ");
       return data;
     } catch (error) {
       console.error("post  route error " + error);

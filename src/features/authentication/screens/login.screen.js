@@ -9,7 +9,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
-import { theme } from "../../../utils/theme";
+import { theme } from "../../autobulance/utilities/theme";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Inputfield } from "../../../components/inputField/Inputfield";

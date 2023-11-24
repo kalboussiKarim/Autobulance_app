@@ -1,19 +1,19 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import { OnboardingScreen } from "./src/features/onboarding/views/onboarding.screen";
-import { theme } from "./src/utils/theme";
+import { theme } from "./src/features/autobulance/utilities/theme";
 import { NavigationContainer } from "@react-navigation/native";
 import { LoginScreen } from "./src/features/authentication/screens/login.screen";
 import HomeScreen from "./src/features/autobulance/screens/HomeScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Provider, useSelector } from "react-redux";
 import store from "./src/store";
-import { useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
+import React from "react";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
-  useEffect(async () => {
+  React.useEffect(async () => {
     // let result = await SecureStore.getItemAsync("onService");
     // if (!result) {
     //   {
