@@ -1,12 +1,39 @@
-import { View, Button, Text } from "react-native";
+import { View, Button, Text, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 import CallForAutoBulanceDialog from "../components/CallForAutoBulanceDialog";
 import TimePickerComponent from "./calenderScreenComponents/TimePickerComponent";
+import { useDispatch, useSelector } from "react-redux";
+import { styles as inputStyles } from "../../../components/inputField/inputfield.styles";
+import { useNavigation } from "@react-navigation/native";
+import { colors } from "../utilities/theme/colors";
+import { getAllRequests } from "../slice";
+import { MaterialCommunityIcons } from "react-native-vector-icons";
+import { TouchableWithoutFeedback } from "react-native";
 
 const CalenderScreen = (props) => {
-  useEffect(() => {}, []);
+  const autobulanceState = useSelector((state) => state.autobulance);
+
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const markedDates = autobulanceState?.clientRequeste.reduce(
+      (result, request) => {
+        const date = request.date;
+        result[date] = {
+          selected: true,
+          marked: true,
+          selectedColor: colors.bg.yellow,
+        };
+        return result;
+      },
+      {}
+    );
+
+    setMarkedDate(markedDates);
+  }, []);
   const [selected, setSelected] = useState("");
+  const [markedDate, setMarkedDate] = useState({});
   const [openDialog, setOpendialog] = useState(false);
 
   return (
@@ -15,12 +42,11 @@ const CalenderScreen = (props) => {
         flex: 1,
 
         paddingHorizontal: 20,
-        paddingTop: 50,
+        paddingTop: 40,
       }}
     >
       <View
         style={{
-          backgroundColor: "red",
           height: "90%",
           width: "100%",
           justifyContent: "center",
@@ -29,6 +55,22 @@ const CalenderScreen = (props) => {
           backgroundColor: "white",
         }}
       >
+        <View
+          style={{
+            alignSelf: "flex-end",
+            marginHorizontal: 20,
+          }}
+        >
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate("map_picker")}
+          >
+            <MaterialCommunityIcons
+              name="map-marker"
+              style={[{ fontSize: 50, color: "#22A699" }]}
+            />
+          </TouchableWithoutFeedback>
+        </View>
+
         <Calendar
           theme={{
             backgroundColor: "#ffffff",
@@ -53,15 +95,14 @@ const CalenderScreen = (props) => {
             setSelected(day.dateString);
             setOpendialog(true);
           }}
-          markedDates={{
-            [selected]: {
-              selected: true,
-              disableTouchEvent: true,
-            },
-          }}
+          markedDates={markedDate}
         />
         <CallForAutoBulanceDialog
-          ExtraContent={<TimePickerComponent />}
+          ExtraContent={
+            <View>
+              <TimePickerComponent />
+            </View>
+          }
           //localisation={localisation}
           openDialog={openDialog}
           handleCancel={() => setOpendialog(false)}

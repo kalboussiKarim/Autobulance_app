@@ -18,6 +18,8 @@ import CallForAutoBulanceDialog from "../components/CallForAutoBulanceDialog";
 import { getBreakdowns } from "../slices/breakdownsSlice";
 import { useState, useEffect } from "react";
 import { getLocalidation } from "../services/MapServices";
+import { getAllRequests } from "../slice";
+
 const HomeScreen = ({ navigation }) => {
   const [openDialog, setOpendialog] = useState(false);
   const [localisation, setLocalisation] = useState({
@@ -27,6 +29,7 @@ const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   dispatch(getBreakdowns());
+  dispatch(getAllRequests());
 
   useEffect(() => {
     getLocalidation().then((location) => {

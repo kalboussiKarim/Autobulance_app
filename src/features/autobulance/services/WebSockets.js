@@ -9,8 +9,8 @@ export const connectToWebSocket = ({ fn, handleChange, dispatch }) => {
       broadcaster: "pusher",
       Pusher,
       key: "autobulance_key", // app key
-      wsHost: "192.168.1.15", // host
-      wssHost: "192.168.1.15",
+      wsHost: "192.168.1.14", // host
+      wssHost: "192.168.1.14",
       wsPort: 6001, // port
       wssPort: 6001,
       forceTLS: false,
@@ -31,7 +31,6 @@ export const connectToWebSocket = ({ fn, handleChange, dispatch }) => {
           lat: e.lattitude,
           dispatch: dispatch,
         }).then((route) => {
-          console.log("route is  :", route);
           dispatch(postRoute(route));
         });
         handleChange(e);

@@ -5,6 +5,7 @@ import { theme } from "./src/features/autobulance/utilities/theme";
 import { NavigationContainer } from "@react-navigation/native";
 import { LoginScreen } from "./src/features/authentication/screens/login.screen";
 import HomeScreen from "./src/features/autobulance/screens/HomeScreen";
+import MapPickerScreen from "./src/features/autobulance/screens/calenderScreenComponents/MapPickerScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Provider, useSelector } from "react-redux";
 import store from "./src/store";
@@ -40,6 +41,11 @@ export default function App() {
             name="login"
             component={LoginScreen}
             options={{ headerShown: false }} // hide the nav bar
+          ></Stack.Screen>
+          <Stack.Screen
+            name="map_picker"
+            component={MapPickerScreen}
+            options={{ headerShown: true }} // hide the nav bar
           ></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>

@@ -24,6 +24,7 @@ export const getAllRequests = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const result = await RequestServices.getAllRequests();
+
       return result.data.data.requests;
     } catch (error) {
       const errorMessage =
@@ -52,7 +53,6 @@ export const postRoute = createAsyncThunk(
   "route/post",
   async (data, thunkAPI) => {
     try {
-      console.log("route to poste ");
       return data;
     } catch (error) {
       console.error("post  route error " + error);
@@ -75,7 +75,8 @@ export const autobulanceSlice = createSlice({
       state.loading = true;
     },
     [postRequest.fulfilled]: (state, action) => {
-      (state.loading = false), state.clientRequeste.push(action.payload.data);
+      (state.loading = false),
+        state.clientRequeste.push(action.payload.request);
       state.success = true;
     },
     [postRequest.rejected]: (state, action) => {
@@ -107,7 +108,7 @@ export const autobulanceSlice = createSlice({
       state.loading = true;
     },
     [getAllRequests.fulfilled]: (state, action) => {
-      (state.loading = false), (state.clientRequeste = action.payload.data);
+      (state.loading = false), (state.clientRequeste = action.payload);
       state.success = true;
     },
     [getAllRequests.rejected]: (state, action) => {

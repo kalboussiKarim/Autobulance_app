@@ -1,7 +1,9 @@
-import { View, Button, Text } from "react-native";
+import { View, Text, Button, TouchableOpacity } from "react-native";
+
 import RBSheet from "react-native-raw-bottom-sheet";
 import { FontAwesome, Feather } from "react-native-vector-icons/";
 import { useDispatch, useSelector } from "react-redux";
+import { colors } from "../utilities/theme/colors";
 import Fn from "../utilities/Fn";
 const BottomSheet = ({
   refRBSheet,
@@ -88,7 +90,6 @@ const BottomSheet = ({
   return (
     <RBSheet
       ref={refRBSheet}
-      height={250}
       closeOnDragDown={true}
       customStyles={{
         wrapper: {
@@ -100,7 +101,7 @@ const BottomSheet = ({
         container: {
           margin: 10,
 
-          height: "45%",
+          height: "55%",
         },
       }}
     >
@@ -129,6 +130,30 @@ const BottomSheet = ({
           }}
         />
         <ManagerDetails />
+
+        <View
+          style={{
+            borderRadius: 20,
+            alignSelf: "center",
+            margin: 10,
+            width: "80%",
+            justifyContent: "center",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              alignSelf: "center",
+              padding: 10,
+              borderRadius: 10,
+              backgroundColor: colors.bg.yellow,
+              justifyContent: "center",
+              alignItems: "center",
+              width: "50%",
+            }}
+          >
+            <Text style={{ fontWeight: "bold", fontSize: 20 }}>STOP </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </RBSheet>
   );

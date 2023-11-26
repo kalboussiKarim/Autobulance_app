@@ -71,6 +71,8 @@ const CallForAutoBulanceDialog = ({
         localisation: localisation,
         dispatch: dispatch,
       });
+      console.log("done");
+      handleCancel;
     }
   };
 

@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
 import BreakdownServices from "../services/BreakdownServices";
 export const getBreakdowns = createAsyncThunk(
   "breakdown/get",
@@ -25,7 +24,6 @@ export const postRequestBreakdown = createAsyncThunk(
     console.log("post breakdown ");
     try {
       const result = await BreakdownServices.postRequestBreakdown(data);
-      console.log(result);
       return result;
     } catch (error) {
       const errorMessage =

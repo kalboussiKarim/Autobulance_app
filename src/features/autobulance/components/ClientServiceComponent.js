@@ -11,6 +11,8 @@ import {
 import Collapsible from "react-native-collapsible";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 import ReparationDetail from "./ReparationDetailComponentl";
+import { TouchableWithoutFeedback } from "react-native";
+import { Button } from "../../authentication/components/Button/button.component";
 // create a component
 const ClientRequestComponent = ({}) => {
   const [estOuvert, setEstOuvert] = React.useState(false);
@@ -18,7 +20,15 @@ const ClientRequestComponent = ({}) => {
   const basculerPanneau = () => {
     setEstOuvert(!estOuvert);
   };
-
+  data = [
+    { name: "s1", price: 12 },
+    { name: "s1", price: 12 },
+    { name: "s1", price: 12 },
+    { name: "s1", price: 12 },
+    { name: "s1", price: 12 },
+    { name: "s1", price: 12 },
+    { name: "s1", price: 12 },
+  ];
   const ServiceLine = ({ title, value }) => {
     return (
       <View
@@ -118,26 +128,28 @@ const ClientRequestComponent = ({}) => {
                 marginHorizontal: 15,
               }}
             >
-              <FlatList
-                data={[
-                  { name: "s1", price: 12 },
-                  { name: "s1", price: 12 },
-                  { name: "s1", price: 12 },
-                  { name: "s1", price: 12 },
-                  { name: "s1", price: 12 },
-                  { name: "s1", price: 12 },
-                  { name: "s1", price: 12 },
-                ]}
-                renderItem={({ item, index }) => (
+              <ScrollView>
+                {data.map((item, index) => {
                   <ReparationDetail
                     key={index}
                     service={{ name: item.name, price: item.price }}
-                  ></ReparationDetail>
-                )}
-              ></FlatList>
+                  ></ReparationDetail>;
+                })}
+              </ScrollView>
+
               {/* Ajoutez le contenu que vous souhaitez afficher lorsque le panneau est ouvert */}
             </View>
           )}
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-around",
+            marginTop: 20,
+          }}
+        >
+          <Button title="upload" backgroundColor="#C4C4C4"></Button>
+          <Button title="Pay" backgroundColor="#22A699"></Button>
         </View>
       </View>
     </View>
