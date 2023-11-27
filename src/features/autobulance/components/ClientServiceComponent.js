@@ -13,8 +13,9 @@ import { MaterialCommunityIcons } from "react-native-vector-icons";
 import ReparationDetail from "./ReparationDetailComponentl";
 import { TouchableWithoutFeedback } from "react-native";
 import { Button } from "../../authentication/components/Button/button.component";
+import IconButtonComponent from "./IconButtonComponent";
 // create a component
-const ClientRequestComponent = ({}) => {
+const ClientRequestComponent = ({ upload, pay }) => {
   const [estOuvert, setEstOuvert] = React.useState(false);
 
   const basculerPanneau = () => {
@@ -63,12 +64,12 @@ const ClientRequestComponent = ({}) => {
   };
   return (
     <View style={{ padding: 10, display: "flex" }}>
-      <View style={styles.dots}>
+      {/* <View style={styles.dots}>
         <MaterialCommunityIcons
           name="close"
           style={{ fontSize: 25 }}
         ></MaterialCommunityIcons>
-      </View>
+      </View> */}
       <View style={[styles.container]}>
         <ServiceLine title={"Autobulance"} value={"TUN:1452"}></ServiceLine>
         <ServiceLine title={"Time"} value={"02:50"}></ServiceLine>
@@ -129,12 +130,16 @@ const ClientRequestComponent = ({}) => {
               }}
             >
               <ScrollView>
-                {data.map((item, index) => {
-                  <ReparationDetail
-                    key={index}
-                    service={{ name: item.name, price: item.price }}
-                  ></ReparationDetail>;
-                })}
+                <View>
+                  {data.map((item, index) => {
+                    return (
+                      <ReparationDetail
+                        key={index}
+                        service={{ name: item.name, price: item.price }}
+                      ></ReparationDetail>
+                    );
+                  })}
+                </View>
               </ScrollView>
 
               {/* Ajoutez le contenu que vous souhaitez afficher lorsque le panneau est ouvert */}
@@ -146,10 +151,11 @@ const ClientRequestComponent = ({}) => {
             flexDirection: "row",
             justifyContent: "space-around",
             marginTop: 20,
+            marginBottom: 10,
           }}
         >
-          <Button title="upload" backgroundColor="#C4C4C4"></Button>
-          <Button title="Pay" backgroundColor="#22A699"></Button>
+          <IconButtonComponent icon={"upload"} onPress={upload} />
+          <IconButtonComponent icon={"dollar"} onPress={pay} />
         </View>
       </View>
     </View>
@@ -163,7 +169,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     paddingVertical: 10,
     display: "flex",
-    elevation: 10,
+    elevation: 5,
 
     backgroundColor: "white",
   },

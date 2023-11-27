@@ -3,6 +3,8 @@ import ClientRequest from "../models/ClientRequest";
 import ClientRequestComponent from "../components/ClientServiceComponent";
 import { useDispatch, useSelector } from "react-redux";
 import ReparationDetail from "../components/ReparationDetailComponentl";
+import PaimentBottomSheet from "../components/paiment_components/PaiementBottomSheet";
+import React, { useRef, useState, useEffect } from "react";
 function groupRequestsByDate(requests) {
   const groupedRequests = {};
   requests.forEach((request) => {
@@ -15,6 +17,7 @@ function groupRequestsByDate(requests) {
   return groupedRequests;
 }
 const PaiementScreen = (props) => {
+  const refRBSheet = useRef();
   const autobulanceSlice = useSelector((state) => state.autobulance);
   const groupedRequests = groupRequestsByDate(autobulanceSlice.clientRequeste);
 
@@ -26,21 +29,19 @@ const PaiementScreen = (props) => {
           paddingHorizontal: 20,
           display: "flex",
           flex: 1,
-
-          // alignItems: "center",
         }}
       >
         <View
           style={{
             alignSelf: "center",
-            height: "80%",
+            height: "100%",
 
             width: "100%",
             paddingBottom: 120,
           }}
         >
           {Object.entries(groupedRequests).map(([date, requestsForDate]) => (
-            <View key={date}>
+            <View style={{ marginVertical: 10 }} key={date}>
               <Text
                 style={{
                   color: "black",
@@ -54,21 +55,17 @@ const PaiementScreen = (props) => {
               </Text>
               <ScrollView>
                 {requestsForDate.map((item, index) => (
-                  <ClientRequestComponent key={index} />
+                  <ClientRequestComponent
+                    upload={() => console.log("upload")}
+                    pay={() => refRBSheet.current.open()}
+                    key={index}
+                  />
                 ))}
-                {/* <FlatList
-                  data={requestsForDate}
-                  keyExtractor={(item) => item.id.toString()}
-                  renderItem={({ item }) => (
-                    <View style={{}}>
-                      <ClientRequestComponent />
-                    </View>
-                  )}
-                /> */}
               </ScrollView>
             </View>
           ))}
         </View>
+        <PaimentBottomSheet refRBSheet={refRBSheet} />
       </View>
     </ScrollView>
   );
