@@ -9,7 +9,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
-import { theme } from "../../autobulance/utilities/theme";
+import { theme } from "../../../utils/theme";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Inputfield } from "../../../components/inputField/Inputfield";
@@ -26,6 +26,7 @@ export const LoginScreen = ({ navigation }) => {
   const [check, setCheck] = useState(false);
   const [resetPasswordDialog, setResetPasswordDialog] = useState(false);
   const dispatch = useDispatch();
+  const authState = useSelector((state) => state.auth);
 
   const handleOnchange = (text, input) => {
     setInputs((prevState) => ({ ...prevState, [input]: text }));
@@ -53,7 +54,9 @@ export const LoginScreen = ({ navigation }) => {
   const handleLogin = async () => {
     try {
       await dispatch(login(inputs)).then((response) => {
-        console.log(response);
+        if (authState?.logedIn) {
+          navigation.navigate("home");
+        }
       });
     } catch (error) {
       console.log("An unexpected error occurred:", error);
@@ -163,7 +166,7 @@ export const LoginScreen = ({ navigation }) => {
             borderColor="#F2BE22"
           />
           <Button
-            onPress={() => console.log("navigate to register screen")}
+            onPress={() => navigation.navigate("register")}
             title="Register"
             titleColor="#FF5E1D"
             backgroundColor="white"

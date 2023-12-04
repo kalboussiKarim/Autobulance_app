@@ -3,7 +3,7 @@ import { View, Text, Button, TouchableOpacity } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { FontAwesome, Feather } from "react-native-vector-icons/";
 import { useDispatch, useSelector } from "react-redux";
-import { colors } from "../utilities/theme/colors";
+import { colors } from "../../../utils/theme/colors";
 import Fn from "../utilities/Fn";
 const BottomSheet = ({
   refRBSheet,

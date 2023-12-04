@@ -1,10 +1,21 @@
 //import liraries
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { colors } from "../../utilities/theme/colors";
+import { colors } from "../../../../utils/theme/colors";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile } from "../../../authentication/slice";
 
 // create a component
 const UserDetails = () => {
+  const dispatch = useDispatch();
+  const authState = useSelector((state) => state.auth);
+
+  React.useEffect(() => {
+    return () => {
+      dispatch(getProfile());
+    };
+  }, []);
+
   return (
     <View
       style={{
@@ -24,12 +35,12 @@ const UserDetails = () => {
         }}
       >
         <Text style={{ fontWeight: "bold", fontSize: 20, color: "white" }}>
-          A
+          {authState?.client.full_name[0]}
         </Text>
       </View>
       <View style={{ marginHorizontal: 20, marginVertical: 5 }}>
-        <Text style={styles.text}>abir karim </Text>
-        <Text>abir@gmail.com </Text>
+        <Text style={styles.text}>{authState?.client.full_name}</Text>
+        <Text>{authState?.client.email}</Text>
       </View>
     </View>
   );

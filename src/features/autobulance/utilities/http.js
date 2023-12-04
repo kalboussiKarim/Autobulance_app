@@ -1,9 +1,28 @@
 import axios from "axios";
-export default axios.create({
-  baseURL: "http://192.168.1.14:8000/api",
+import * as SecureStore from "expo-secure-store";
+const getAuthToken = async () => {
+  try {
+    const token = await SecureStore.getItemAsync("token");
+
+    return token;
+  } catch (error) {
+    console.error("Erreur lors de la récupération du jeton :", error);
+    return null;
+  }
+};
+
+const api = axios.create({
+  baseURL: "http://192.168.1.25:8000/api",
   headers: {
-    Authorization: "Bearer 1|u4tdUzRyqwKtYVUH2va3V9m3ZG6bT57XeUVlIXiA",
     "Content-type": "application/json",
     Accept: "application/vnd.api+json",
   },
 });
+api.interceptors.request.use(async (config) => {
+  const token = await getAuthToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+export default api;

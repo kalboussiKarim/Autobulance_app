@@ -1,4 +1,5 @@
 import React from "react";
+import { setIsFirstTimeFalse } from "../../features/authentication/slice";
 import {
   StyleSheet,
   Text,
@@ -6,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   Image,
 } from "react-native";
+import { useDispatch } from "react-redux";
 
 import Animated, {
   useAnimatedStyle,
@@ -19,6 +21,7 @@ export const CustomButton = ({
   flatListIndex,
   dataLength,
 }) => {
+  const dispatch = useDispatch();
   const buttonAnimationStyle = useAnimatedStyle(() => {
     return {
       width:
@@ -68,6 +71,7 @@ export const CustomButton = ({
           flatListRef.current.scrollToIndex({ index: flatListIndex.value + 1 });
         } else {
           navigation.navigate("login");
+          dispatch(setIsFirstTimeFalse());
         }
       }}
     >

@@ -3,7 +3,7 @@ import { TextInput, View, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 
 //styling
-import { colors } from "../../features/autobulance/utilities/theme/colors";
+import { colors } from "../../utils/theme/colors";
 import { styles as inputStyles } from "./inputfield.styles";
 
 export const Inputfield = ({

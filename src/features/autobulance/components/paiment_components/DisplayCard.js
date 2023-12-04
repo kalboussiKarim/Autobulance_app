@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
-import { colors } from "../../utilities/theme/colors";
+import { colors } from "../../../../utils/theme/colors";
 // create a component
 const DisplayCards = () => {
   const cards = [

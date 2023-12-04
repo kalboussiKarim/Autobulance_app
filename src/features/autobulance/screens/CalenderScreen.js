@@ -6,7 +6,7 @@ import TimePickerComponent from "./calenderScreenComponents/TimePickerComponent"
 import { useDispatch, useSelector } from "react-redux";
 import { styles as inputStyles } from "../../../components/inputField/inputfield.styles";
 import { useNavigation } from "@react-navigation/native";
-import { colors } from "../utilities/theme/colors";
+import { colors } from "../../../utils/theme/colors";
 import { getAllRequests } from "../slice";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 import { TouchableWithoutFeedback } from "react-native";

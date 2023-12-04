@@ -2,15 +2,26 @@
 import React, { Component } from "react";
 
 import { View, Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
-import { MaterialCommunityIcons } from "react-native-vector-icons";
+import Icon from "react-native-vector-icons/Ionicons";
 
 // create a component
-const ListItemComponent = ({ title, icon, onpress }) => {
+const ListItemComponent = ({ title, icon, onpress, colored }) => {
   return (
-    <TouchableWithoutFeedback>
-      <View>
-        <Text>{title}</Text>
-        <MaterialCommunityIcons icon={icon}></MaterialCommunityIcons>
+    <TouchableWithoutFeedback onPress={onpress}>
+      <View
+        style={{
+          margin: 10,
+          marginHorizontal: 20,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          backgroundColor: colored ? "#F2BE22" : "#E5E5E5",
+          elevation: 5,
+          borderRadius: 10,
+          padding: 10,
+        }}
+      >
+        <Text style={{ fontSize: 15, fontWeight: "bold" }}>{title}</Text>
+        <Icon name={icon} size={25} color={"black"}></Icon>
       </View>
     </TouchableWithoutFeedback>
   );

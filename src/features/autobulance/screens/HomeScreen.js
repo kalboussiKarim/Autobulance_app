@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { useDispatch, useSelector } from "react-redux";
-import { colors } from "../utilities/theme/colors";
+import { colors } from "../../../utils/theme/colors";
 import { CurvedBottomBarExpo } from "react-native-curved-bottom-bar";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";

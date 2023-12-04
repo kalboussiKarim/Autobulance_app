@@ -6,7 +6,10 @@ class AuthServices {
   logout() {
     return http.post("/client/logout");
   }
-  signUp(data) {
+  getProfile() {
+    return http.get("/client/profile");
+  }
+  register(data) {
     return http.post("/client/register", data);
   }
   update(data) {
