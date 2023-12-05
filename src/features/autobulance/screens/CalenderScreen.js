@@ -13,6 +13,7 @@ import { TouchableWithoutFeedback } from "react-native";
 
 const CalenderScreen = (props) => {
   const autobulanceState = useSelector((state) => state.autobulance);
+  const localisationState = useSelector((state) => state.location);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -98,12 +99,14 @@ const CalenderScreen = (props) => {
           markedDates={markedDate}
         />
         <CallForAutoBulanceDialog
+          type={"PLANNED"}
+          date={selected}
           ExtraContent={
             <View>
               <TimePickerComponent />
             </View>
           }
-          //localisation={localisation}
+          localisation={localisationState?.location}
           openDialog={openDialog}
           handleCancel={() => setOpendialog(false)}
         />

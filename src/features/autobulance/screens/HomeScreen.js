@@ -112,6 +112,7 @@ const HomeScreen = ({ navigation }) => {
             onPress={() => setOpendialog(true)}
           >
             <CallForAutoBulanceDialog
+              type={"EMERGENCY"}
               localisation={localisation}
               openDialog={openDialog}
               handleCancel={() => setOpendialog(false)}

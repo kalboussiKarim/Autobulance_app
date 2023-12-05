@@ -6,8 +6,17 @@ import { colors } from "../../../utils/theme/colors";
 import UserDetails from "../components/settings_components/UserDetails";
 import ListItemComponent from "../components/settings_components/ListItemComponent";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile } from "../../authentication/slice";
 
 const SettingsScreen = (props) => {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    return () => {
+      dispatch(getProfile());
+    };
+  }, []);
+
   const navigation = useNavigation();
   const settings = [
     {

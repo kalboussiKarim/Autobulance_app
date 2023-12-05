@@ -7,12 +7,11 @@ import { getProfile } from "../../../authentication/slice";
 
 // create a component
 const UserDetails = () => {
-  const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth);
 
   React.useEffect(() => {
     return () => {
-      dispatch(getProfile());
+      console.log(authState?.client);
     };
   }, []);
 

@@ -8,6 +8,8 @@ import { useState } from "react";
 import { handlePostRequest } from "./callforAutobulance/services";
 
 const CallForAutoBulanceDialog = ({
+  type,
+  date,
   ExtraContent,
   openDialog,
   handleCancel,
@@ -66,13 +68,16 @@ const CallForAutoBulanceDialog = ({
       isValid = false;
     }
     if (isValid) {
+      console.log("localisation" + localisation);
       handlePostRequest({
+        type: type,
         inputs: inputs,
+        date: date,
         localisation: localisation,
         dispatch: dispatch,
       });
       console.log("done");
-      handleCancel;
+      handleCancel();
     }
   };
 

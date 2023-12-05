@@ -62,6 +62,7 @@ const EditProfile = () => {
           label="Enter your user name"
           error={errors.full_name}
           iconName="account-outline"
+          defaultValue={"abir"}
         />
         <PhoneNumber
           handleOnchange={handleOnchange}
