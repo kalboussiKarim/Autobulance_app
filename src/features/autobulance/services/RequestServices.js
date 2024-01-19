@@ -4,8 +4,9 @@ class RequestServices {
     return http.post("/request/client/", data);
   }
   getAllRequests() {
-    return http.get("/request/client/");
+    return http.get("/request/client/task");
   }
+
   editRequest(data, id) {
     return http.put("/request/client/" + { id }, data);
   }

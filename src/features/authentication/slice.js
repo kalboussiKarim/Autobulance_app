@@ -56,6 +56,34 @@ export const getProfile = createAsyncThunk("auth/profile", async () => {
     return thunkAPI.rejectWithValue();
   }
 });
+
+export const updateProfile = createAsyncThunk(
+  "auth/update-profile",
+  async (data) => {
+    try {
+      const result = await AuthServices.update(data);
+      console.log(result.data.data);
+      ToastAndroid.show(
+        "profile is  updated successfully",
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM
+      );
+      return result.data.data;
+    } catch (error) {
+      const errorMessage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      console.log(errorMessage);
+      ToastAndroid.show(errorMessage, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -125,13 +153,21 @@ export const authSlice = createSlice({
     [getProfile.fulfilled]: (state, action) => {
       state.loading = false;
       state.success = true;
-      state.registred = true;
       state.client = action.payload.client;
     },
     [getProfile.rejected]: (state, action) => {
-      (state.loading = false),
-        (state.success = false),
-        (state.registred = false);
+      (state.loading = false), (state.success = false);
+    },
+    [updateProfile.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [updateProfile.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.success = true;
+      state.client = action.payload.client;
+    },
+    [updateProfile.rejected]: (state, action) => {
+      (state.loading = false), (state.success = false);
     },
   },
 });

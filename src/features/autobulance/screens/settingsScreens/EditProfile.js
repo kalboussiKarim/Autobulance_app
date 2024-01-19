@@ -15,16 +15,34 @@ import { GenderPicker } from "../../../authentication/components/regsitration/Ge
 import { BirthDateField } from "../../../../components/dateField/DateField.component";
 import { Button } from "../../../authentication/components/Button/button.component";
 import SettingButton from "./SettingButton";
+import { useDispatch, useSelector } from "react-redux";
+import { updateProfile } from "../../../authentication/slice";
 
 // create a component
 const EditProfile = () => {
+  const dispatch = useDispatch();
+  const authState = useSelector((state) => state.auth);
+  const update_profile = () => {
+    dispatch(
+      updateProfile({
+        full_name: inputs.full_name,
+        phone: inputs.country_code + inputs.phone,
+        gender: inputs.gender,
+        date_of_birth: inputs.date_of_birth,
+      })
+    );
+  };
+  React.useEffect(() => {
+    return () => {
+      console.log("client" + JSON.stringify(authState.client));
+    };
+  }, [authState]);
   const [inputs, setInputs] = useState({
-    full_name: "",
-
+    full_name: authState.client.full_name,
     country_code: "",
-    phone: "",
-    gender: "",
-    date_of_birth: "",
+    phone: authState.client.phone,
+    gender: authState.client.gender,
+    date_of_birth: authState.client.date_of_birth,
   });
   const [errors, setErrors] = useState({});
 
@@ -62,20 +80,25 @@ const EditProfile = () => {
           label="Enter your user name"
           error={errors.full_name}
           iconName="account-outline"
-          defaultValue={"abir"}
+          defaultValue={inputs.full_name}
         />
         <PhoneNumber
           handleOnchange={handleOnchange}
           handleError={handleError}
+          defaultValue={authState.client.phone}
           error={errors.phone}
         ></PhoneNumber>
-        <GenderPicker handleOnchange={handleOnchange} />
+        <GenderPicker
+          handleOnchange={handleOnchange}
+          gender={true ? (authState.client.gender = "male") : false}
+        />
         <BirthDateField
           handleOnchange={handleOnchange}
           error={errors.date_of_birth}
+          defaultValue={authState.client.date_of_birth}
         />
       </View>
-      <SettingButton title={"save"} />
+      <SettingButton title={"save"} onPress={update_profile} />
     </View>
   );
 };

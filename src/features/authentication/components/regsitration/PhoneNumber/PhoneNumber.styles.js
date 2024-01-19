@@ -4,8 +4,13 @@ import { MaterialCommunityIcons } from "react-native-vector-icons";
 import { CountryPicker } from "react-native-country-codes-picker";
 import { Inputfield } from "../../../../../components/inputField/Inputfield";
 
-export const PhoneNumber = ({ handleOnchange, error, handleError }) => {
-  const [phoneNumber, setPhoneNumber] = useState("");
+export const PhoneNumber = ({
+  handleOnchange,
+  error,
+  handleError,
+  defaultValue,
+}) => {
+  const [phoneNumber, setPhoneNumber] = useState(defaultValue);
   const [showPhone, setShowPhone] = useState(false);
   const [countryCode, setCountryCode] = useState("+216");
 
@@ -75,6 +80,7 @@ export const PhoneNumber = ({ handleOnchange, error, handleError }) => {
           error={error}
           iconName="phone-outline"
           keyboardType="numeric"
+          defaultValue={defaultValue}
         />
       </View>
     </View>

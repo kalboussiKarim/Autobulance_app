@@ -3,8 +3,8 @@ import { View, Text, TouchableWithoutFeedback } from "react-native";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 import theme from "../../../../../utils/theme";
 
-export const GenderPicker = ({ handleOnchange }) => {
-  const [isMale, setIsMale] = useState(true);
+export const GenderPicker = ({ handleOnchange, gender = false }) => {
+  const [isMale, setIsMale] = useState(gender);
 
   useEffect(() => {
     handleOnchange("male", "gender");

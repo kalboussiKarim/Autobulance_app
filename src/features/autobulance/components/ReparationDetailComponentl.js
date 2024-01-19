@@ -16,7 +16,7 @@ const ReparationDetail = ({ service }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    marginHorizontal: 10,
+    marginHorizontal: 0,
     justifyContent: "space-between",
   },
   textStyle: {

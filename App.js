@@ -18,6 +18,7 @@ import Statistic from "./src/features/autobulance/screens/settingsScreens/Statis
 import FirstAid from "./src/features/autobulance/screens/settingsScreens/FirstAid";
 import { RegisterScreen } from "./src/features/authentication/screens/Register.screen";
 import { useDispatch } from "react-redux";
+import ScreensHeader from "./src/features/autobulance/components/screensHeader";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -28,7 +29,20 @@ export default function App() {
   );
 }
 const AppStack = () => {
-  var token = SecureStore.getItemAsync("token");
+  const [token, setToken] = React.useState(null);
+
+  React.useEffect(() => {
+    const getToken = async () => {
+      try {
+        const storedToken = await SecureStore.getItemAsync("token");
+        setToken(storedToken);
+      } catch (error) {
+        console.error("Error retrieving token:", error);
+      }
+    };
+
+    getToken();
+  }, []);
   const authState = useSelector((state) => state.auth);
 
   return (
@@ -57,11 +71,18 @@ const AppStack = () => {
                     component={RegisterScreen}
                     options={{ headerShown: false }} // hide the nav bar
                   ></Stack.Screen>
+                  <Stack.Screen
+                    name="home"
+                    component={HomeScreen}
+                    options={{ headerShown: false }} // hide the nav bar
+                  ></Stack.Screen>
                 </Stack.Group>
               )}
             </Stack.Group>
           ) : (
-            <Stack.Group>
+            <Stack.Group
+            //options={{ headerTitle: (props) => <ScreensHeader /> }}
+            >
               <Stack.Screen
                 name="home"
                 component={HomeScreen}

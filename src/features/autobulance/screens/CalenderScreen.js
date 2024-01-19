@@ -10,27 +10,26 @@ import { colors } from "../../../utils/theme/colors";
 import { getAllRequests } from "../slice";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 import { TouchableWithoutFeedback } from "react-native";
+import { getProfile } from "../../authentication/slice";
 
 const CalenderScreen = (props) => {
   const autobulanceState = useSelector((state) => state.autobulance);
   const localisationState = useSelector((state) => state.location);
-
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  useEffect(() => {
-    const markedDates = autobulanceState?.clientRequeste.reduce(
-      (result, request) => {
-        const date = request.date;
-        result[date] = {
-          selected: true,
-          marked: true,
-          selectedColor: colors.bg.yellow,
-        };
-        return result;
-      },
-      {}
-    );
 
+  useEffect(() => {
+    const markedDates = (autobulanceState.clientRequeste.length = 0
+      ? []
+      : autobulanceState.clientRequeste.reduce((result, request) => {
+          const date = request.request.date;
+          result[date] = {
+            selected: true,
+            marked: true,
+            selectedColor: colors.bg.yellow,
+          };
+          return result;
+        }, {}));
     setMarkedDate(markedDates);
   }, []);
   const [selected, setSelected] = useState("");

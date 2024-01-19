@@ -4,7 +4,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 
-export const BirthDateField = ({ error, handleOnchange }) => {
+export const BirthDateField = ({ error, handleOnchange, defaultValue }) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [birthDate, setBirthDate] = useState(new Date());
 
@@ -67,6 +67,7 @@ export const BirthDateField = ({ error, handleOnchange }) => {
           <DateTimePicker
             mode="date"
             value={birthDate}
+            defaultValue={defaultValue}
             maximumDate={new Date()}
             minimumDate={new Date(1820, 1, 1)}
             onChange={onChange}

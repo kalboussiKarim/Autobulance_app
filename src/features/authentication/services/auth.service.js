@@ -13,7 +13,7 @@ class AuthServices {
     return http.post("/client/register", data);
   }
   update(data) {
-    return http.put("/", data);
+    return http.put("/client/profile", data);
   }
 }
 export default new AuthServices();

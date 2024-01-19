@@ -9,8 +9,8 @@ export const connectToWebSocket = ({ fn, handleChange, dispatch }) => {
       broadcaster: "pusher",
       Pusher,
       key: "autobulance_key", // app key
-      wsHost: "192.168.1.25", // host
-      wssHost: "192.168.1.25",
+      wsHost: "192.168.1.18", // host
+      wssHost: "192.168.1.18",
       wsPort: 6001, // port
       wssPort: 6001,
       forceTLS: false,

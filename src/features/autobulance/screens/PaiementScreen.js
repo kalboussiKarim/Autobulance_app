@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ReparationDetail from "../components/ReparationDetailComponentl";
 import PaimentBottomSheet from "../components/paiment_components/PaiementBottomSheet";
 import React, { useRef, useState, useEffect } from "react";
+import { genererFacture } from "../services/PaimentServices";
 function groupRequestsByDate(requests) {
   const groupedRequests = {};
   requests.forEach((request) => {
@@ -20,6 +21,7 @@ const PaiementScreen = (props) => {
   const refRBSheet = useRef();
   const autobulanceSlice = useSelector((state) => state.autobulance);
   const groupedRequests = groupRequestsByDate(autobulanceSlice.clientRequeste);
+  console.log(groupedRequests);
 
   return (
     <ScrollView>
@@ -56,7 +58,8 @@ const PaiementScreen = (props) => {
               <ScrollView>
                 {requestsForDate.map((item, index) => (
                   <ClientRequestComponent
-                    upload={() => console.log("upload")}
+                    data={item}
+                    upload={async () => await genererFacture(item)}
                     pay={() => refRBSheet.current.open()}
                     key={index}
                   />

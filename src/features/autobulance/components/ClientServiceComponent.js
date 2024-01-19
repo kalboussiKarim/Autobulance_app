@@ -15,21 +15,22 @@ import { TouchableWithoutFeedback } from "react-native";
 import { Button } from "../../authentication/components/Button/button.component";
 import IconButtonComponent from "./IconButtonComponent";
 // create a component
-const ClientRequestComponent = ({ upload, pay }) => {
+const ClientRequestComponent = ({ upload, pay, data }) => {
+  function calculerSommePrix(services) {
+    var somme = 0;
+
+    services.forEach(function (service) {
+      somme += parseFloat(service.price);
+    });
+
+    return somme.toFixed(2);
+  }
   const [estOuvert, setEstOuvert] = React.useState(false);
 
   const basculerPanneau = () => {
     setEstOuvert(!estOuvert);
   };
-  data = [
-    { name: "s1", price: 12 },
-    { name: "s1", price: 12 },
-    { name: "s1", price: 12 },
-    { name: "s1", price: 12 },
-    { name: "s1", price: 12 },
-    { name: "s1", price: 12 },
-    { name: "s1", price: 12 },
-  ];
+
   const ServiceLine = ({ title, value }) => {
     return (
       <View
@@ -71,21 +72,30 @@ const ClientRequestComponent = ({ upload, pay }) => {
         ></MaterialCommunityIcons>
       </View> */}
       <View style={[styles.container]}>
-        <ServiceLine title={"Autobulance"} value={"TUN:1452"}></ServiceLine>
-        <ServiceLine title={"Time"} value={"02:50"}></ServiceLine>
+        <ServiceLine
+          title={"Autobulance"}
+          value={data.autobulance.matricule}
+        ></ServiceLine>
+        <ServiceLine
+          title={"Time"}
+          value={data.created_at.substring(11, 19)}
+        ></ServiceLine>
         <View
           style={{
             backgroundColor: "#F2BE22",
             borderRadius: 20,
           }}
         >
-          <ServiceLine title={"Total"} value={"190 DT"}></ServiceLine>
+          <ServiceLine
+            title={"Total"}
+            value={calculerSommePrix(data.services) + " DT"}
+          ></ServiceLine>
         </View>
         {/* drow line  */}
         <View
           style={{
             alignSelf: "center",
-            marginTop: 10,
+            marginTop: 15,
             width: "90%",
             borderBottomColor: "black",
             borderBottomWidth: StyleSheet.hairlineWidth,
@@ -95,7 +105,11 @@ const ClientRequestComponent = ({ upload, pay }) => {
         <View style={{ marginHorizontal: 20 }}>
           <TouchableOpacity onPress={basculerPanneau}>
             <View
-              style={{ justifyContent: "space-between", flexDirection: "row" }}
+              style={{
+                justifyContent: "space-between",
+                flexDirection: "row",
+                marginVertical: 10,
+              }}
             >
               <Text
                 style={{
@@ -126,12 +140,11 @@ const ClientRequestComponent = ({ upload, pay }) => {
                 padding: 10,
                 borderRadius: 5,
                 height: 80,
-                marginHorizontal: 15,
               }}
             >
               <ScrollView>
                 <View>
-                  {data.map((item, index) => {
+                  {data.services.map((item, index) => {
                     return (
                       <ReparationDetail
                         key={index}
@@ -141,8 +154,6 @@ const ClientRequestComponent = ({ upload, pay }) => {
                   })}
                 </View>
               </ScrollView>
-
-              {/* Ajoutez le contenu que vous souhaitez afficher lorsque le panneau est ouvert */}
             </View>
           )}
         </View>
@@ -150,7 +161,7 @@ const ClientRequestComponent = ({ upload, pay }) => {
           style={{
             flexDirection: "row",
             justifyContent: "space-around",
-            marginTop: 20,
+            marginTop: 0,
             marginBottom: 10,
           }}
         >
