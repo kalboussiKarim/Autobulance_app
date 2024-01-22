@@ -26,7 +26,7 @@ const EditProfile = () => {
     dispatch(
       updateProfile({
         full_name: inputs.full_name,
-        phone: inputs.country_code + inputs.phone,
+        phone: inputs.phone,
         gender: inputs.gender,
         date_of_birth: inputs.date_of_birth,
       })

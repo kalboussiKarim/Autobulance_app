@@ -8,6 +8,7 @@ import ListItemComponent from "../components/settings_components/ListItemCompone
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../authentication/slice";
+import call from "react-native-phone-call";
 
 const SettingsScreen = (props) => {
   const dispatch = useDispatch();
@@ -45,15 +46,21 @@ const SettingsScreen = (props) => {
     },
     { name: "Push notification", icon: "toggle", colored: false },
     { name: "Dark mode", icon: "toggle", colored: false },
+
     {
-      name: "Statistic",
-      icon: "caret-forward",
-      colored: false,
+      name: "Tel:70888505",
+      icon: "megaphone-outline",
+      colored: true,
       onpress: () => {
-        navigation.navigate("statistic");
+        const args = {
+          number: "70888505",
+          prompt: false,
+          skipCanOpen: true,
+        };
+
+        call(args).catch(console.error);
       },
     },
-    { name: "Tel:70888505", icon: "megaphone-outline", colored: true },
     {
       name: "First_Aid ",
       icon: "caret-forward",

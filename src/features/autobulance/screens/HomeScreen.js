@@ -19,7 +19,7 @@ import { getBreakdowns } from "../slices/breakdownsSlice";
 import { useState, useEffect } from "react";
 import { getLocalidation } from "../services/MapServices";
 import { getAllRequests } from "../slice";
-
+import { getProfile } from "../../authentication/slice";
 const HomeScreen = ({ navigation }) => {
   const [openDialog, setOpendialog] = useState(false);
   const [localisation, setLocalisation] = useState({
@@ -30,6 +30,7 @@ const HomeScreen = ({ navigation }) => {
 
   dispatch(getBreakdowns());
   dispatch(getAllRequests());
+  dispatch(getProfile());
 
   useEffect(() => {
     getLocalidation().then((location) => {
@@ -43,7 +44,7 @@ const HomeScreen = ({ navigation }) => {
 
     switch (routeName) {
       case "map":
-        icon = "ios-home-outline";
+        icon = "home-outline";
         hover = "home-sharp";
         break;
       case "calendar":
@@ -113,6 +114,7 @@ const HomeScreen = ({ navigation }) => {
           >
             <CallForAutoBulanceDialog
               type={"EMERGENCY"}
+              date={new Date()}
               localisation={localisation}
               openDialog={openDialog}
               handleCancel={() => setOpendialog(false)}

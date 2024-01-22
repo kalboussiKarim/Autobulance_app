@@ -16,6 +16,7 @@ const UserDetails = () => {
       dispatch(getProfile());
       console.log("user");
       console.log(authState?.client);
+      console.log("user");
     };
   }, [dispatch]);
 

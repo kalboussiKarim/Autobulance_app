@@ -8,27 +8,27 @@ export const data = [
     id: 1,
     image: image1,
     bg: bg,
-    title: "This is the title of the onboarding",
+    title: "Discover Seamless Car Assistance",
 
     description:
-      "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form",
+      "Explore a world of effortless car services at your fingertips with AutoAssist. From breakdown assistance to scheduled maintenance, we've got you covered.",
   },
   {
     id: 2,
     image: image2,
 
     bg: bg,
-    title: "This is the title of the onboarding",
+    title: "Tailored Solutions for Your Vehicle",
     description:
-      "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form",
+      "AutoAssist provides personalized care plans for your car's unique needs. Enjoy worry-free driving with our comprehensive range of services.",
   },
   {
     id: 3,
     image: image3,
 
     bg: bg,
-    title: "This is the title of the onboarding",
+    title: "Streamlined Car Management",
     description:
-      "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form",
+      "Take control of your car experience with AutoAssist. From real-time updates to easy scheduling, we simplify every aspect of car ownership for you.",
   },
 ];

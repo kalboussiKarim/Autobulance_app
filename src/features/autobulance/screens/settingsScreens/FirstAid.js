@@ -1,10 +1,20 @@
 //import liraries
 import React, { Component, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  useWindowDimensions,
+} from "react-native";
 import first_aid from "../../../onboarding/data/first_aid";
 import { colors } from "../../../../utils/theme/colors";
+
 // create a component
 const FirstAid = () => {
+  const { width: SCREEN_WIDTH } = useWindowDimensions();
+
   const [expandedIndex, setExpandedIndex] = useState(null);
 
   const toggleExpand = (index) => {
@@ -21,6 +31,14 @@ const FirstAid = () => {
           </TouchableOpacity>
           {expandedIndex === index && (
             <View style={styles.itemDetails}>
+              <Image
+                source={item.img}
+                style={{
+                  alignSelf: "center",
+                  height: SCREEN_WIDTH * 0.3,
+                  width: SCREEN_WIDTH * 0.3,
+                }}
+              />
               <Text style={{ fontWeight: "bold" }}>Description: </Text>
               <Text>{item.description}</Text>
               <Text style={{ fontWeight: "bold" }}>Solution:</Text>

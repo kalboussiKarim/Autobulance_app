@@ -1,6 +1,13 @@
+import image1 from "../../../../assets/aid/img1.png";
+import image2 from "../../../../assets/aid/img2.png";
+import image3 from "../../../../assets/aid/img3.png";
+import image4 from "../../../../assets/aid/img4.png";
+import image5 from "../../../../assets/aid/img5.png";
+
 export default First_aid = [
   {
     breakdown_name: "Panne de batterie",
+    img: image1,
     description:
       "La voiture ne démarre pas, aucun bruit lorsque la clé est tournée.",
     solution:
@@ -8,6 +15,8 @@ export default First_aid = [
   },
   {
     breakdown_name: "Panne de pneu crevé",
+    img: image4,
+
     description:
       "Le véhicule perd de l'air rapidement, ou le pneu est complètement à plat.",
     solution:
@@ -15,6 +24,8 @@ export default First_aid = [
   },
   {
     breakdown_name: "Panne de surchauffe",
+    img: image5,
+
     description:
       "Le voyant de température du moteur s'allume, de la fumée s'échappe du capot.",
     solution:
@@ -22,6 +33,8 @@ export default First_aid = [
   },
   {
     breakdown_name: "Panne de moteur",
+    img: image3,
+
     description:
       "Le moteur fait des bruits inhabituels, perd de la puissance ou s'arrête soudainement.",
     solution:
@@ -29,6 +42,8 @@ export default First_aid = [
   },
   {
     breakdown_name: "Panne de frein",
+    img: image2,
+
     description:
       "Les freins grincent, sont mous ou ne répondent pas correctement.",
     solution:

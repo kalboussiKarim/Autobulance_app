@@ -19,6 +19,7 @@ const CalenderScreen = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(autobulanceState.clientRequeste);
     const markedDates = (autobulanceState.clientRequeste.length = 0
       ? []
       : autobulanceState.clientRequeste.reduce((result, request) => {

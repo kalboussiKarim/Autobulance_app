@@ -1,25 +1,11 @@
 //import liraries
-import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, ScrollView } from "react-native";
+import { BarChart, LineChart } from "react-native-chart-kit";
+// import { format, parseISO } from "date-fns";
+import { useDispatch, useSelector } from "react-redux";
 
-// create a component
-const Statistic = () => {
-  return (
-    <View style={styles.container}>
-      <Text>Statistic</Text>
-    </View>
-  );
-};
-
-// define your styles
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#2c3e50",
-  },
-});
+const Statistic = () => {};
 
 //make this component available to the app
 export default Statistic;

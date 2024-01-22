@@ -9,11 +9,13 @@ import { genererFacture } from "../services/PaimentServices";
 function groupRequestsByDate(requests) {
   const groupedRequests = {};
   requests.forEach((request) => {
-    const date = request.date;
-    if (!groupedRequests[date]) {
-      groupedRequests[date] = [];
+    if (request.autobulance != null) {
+      const date = request.request.date;
+      if (!groupedRequests[date]) {
+        groupedRequests[date] = [];
+      }
+      groupedRequests[date].push(request);
     }
-    groupedRequests[date].push(request);
   });
   return groupedRequests;
 }
@@ -21,7 +23,6 @@ const PaiementScreen = (props) => {
   const refRBSheet = useRef();
   const autobulanceSlice = useSelector((state) => state.autobulance);
   const groupedRequests = groupRequestsByDate(autobulanceSlice.clientRequeste);
-  console.log(groupedRequests);
 
   return (
     <ScrollView>
