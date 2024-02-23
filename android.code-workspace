@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "android",
+			"path": "../../../projects/tp_mobile/findme/android"
+		},
+		{
+			"name": "autobulance_app",
+			"path": "."
+		}
+	],
+	"settings": {}
+}

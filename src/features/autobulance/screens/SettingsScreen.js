@@ -69,6 +69,14 @@ const SettingsScreen = (props) => {
         navigation.navigate("first-aid");
       },
     },
+    {
+      name: "LogOut ",
+      icon: "exit-outline",
+      colored: false,
+      onpress: () => {
+        navigation.navigate("login");
+      },
+    },
   ];
   return (
     <View style={{ marginTop: 50 }}>

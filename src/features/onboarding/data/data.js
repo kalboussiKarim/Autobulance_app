@@ -20,7 +20,7 @@ export const data = [
     bg: bg,
     title: "Tailored Solutions for Your Vehicle",
     description:
-      "AutoAssist provides personalized care plans for your car's unique needs. Enjoy worry-free driving with our comprehensive range of services.",
+      "Autobulance provides personalized care plans for your car's unique needs. Enjoy worry-free driving with our comprehensive range of services.",
   },
   {
     id: 3,

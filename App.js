@@ -19,7 +19,7 @@ import FirstAid from "./src/features/autobulance/screens/settingsScreens/FirstAi
 import { RegisterScreen } from "./src/features/authentication/screens/Register.screen";
 import { useDispatch } from "react-redux";
 import ScreensHeader from "./src/features/autobulance/components/screensHeader";
-
+import SettingsScreen from "./src/features/autobulance/screens/SettingsScreen";
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
@@ -76,6 +76,41 @@ const AppStack = () => {
                     component={HomeScreen}
                     options={{ headerShown: false }} // hide the nav bar
                   ></Stack.Screen>
+                  <Stack.Screen
+                    name="setting"
+                    component={SettingsScreen}
+                    options={{ headerShown: false }} // hide the nav bar
+                  ></Stack.Screen>
+                  <Stack.Screen
+                    name="map_picker"
+                    component={MapPickerScreen}
+                    options={{ headerShown: true }} // hide the nav bar
+                  ></Stack.Screen>
+                  <Stack.Screen
+                    name="edit-profile"
+                    component={EditProfile}
+                    options={{ headerShown: true }} // hide the nav bar
+                  ></Stack.Screen>
+                  <Stack.Screen
+                    name="change-password"
+                    component={ChangePassword}
+                    options={{ headerShown: true }} // hide the nav bar
+                  ></Stack.Screen>
+                  <Stack.Screen
+                    name="add-payment"
+                    component={AddPaymentMethod}
+                    options={{ headerShown: true }} // hide the nav bar
+                  ></Stack.Screen>
+                  <Stack.Screen
+                    name="statistic"
+                    component={Statistic}
+                    options={{ headerShown: true }} // hide the nav bar
+                  ></Stack.Screen>
+                  <Stack.Screen
+                    name="first-aid"
+                    component={FirstAid}
+                    options={{ headerShown: true }} // hide the nav bar
+                  ></Stack.Screen>
                 </Stack.Group>
               )}
             </Stack.Group>
@@ -84,8 +119,23 @@ const AppStack = () => {
             //options={{ headerTitle: (props) => <ScreensHeader /> }}
             >
               <Stack.Screen
+                name="login"
+                component={LoginScreen}
+                options={{ headerShown: false }} // hide the nav bar
+              ></Stack.Screen>
+              <Stack.Screen
+                name="register"
+                component={RegisterScreen}
+                options={{ headerShown: false }} // hide the nav bar
+              ></Stack.Screen>
+              <Stack.Screen
                 name="home"
                 component={HomeScreen}
+                options={{ headerShown: false }} // hide the nav bar
+              ></Stack.Screen>
+              <Stack.Screen
+                name="setting"
+                component={SettingsScreen}
                 options={{ headerShown: false }} // hide the nav bar
               ></Stack.Screen>
               <Stack.Screen
